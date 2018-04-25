@@ -35,11 +35,31 @@ var quotes = [
 	}
 ];
 
-var colors = ["#EC644B", "#674172", "#446CB3","#36b55c", "#F7CA18", "#6C7A89"];
+var colors = [
+	"rgb(236, 100, 75)", 
+	"rgb(103, 65, 114)", 
+	"rgb(68, 108, 179)",
+	"rgb(54, 181, 92)", 
+	"rgb(247, 202, 24)", 
+	"rgb(108, 122, 137)"
+];
+
 
 // Select a random quote object from the quotes array and return the randomly selected quote object.
 function getRandomQuote(){
-	return quotes[Math.floor(Math.random() * quotes.length)];
+	var randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+	while($(".quote").text()==randomQuote.quote){
+		randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+	}
+	return randomQuote;
+}
+
+function getColor(){ 
+	var colorValue = Math.floor(Math.random() * colors.length);
+	while ($("body").css('background-color')==colors[colorValue]){
+		colorValue = Math.floor(Math.random() * colors.length);
+	}
+	$("#loadQuote, body").css("background-color", colors[colorValue]);
 }
 
 function printQuote(){
@@ -62,9 +82,7 @@ function printQuote(){
 	$(".source").html(quote.source+citation+year);
 
 	// When the quote changes, randomly change the background color of the page.
-	var colorValue = Math.floor(Math.random() * colors.length);
-	$("#loadQuote").css("background-color", colors[colorValue]);
-	$("body").css("background-color", colors[colorValue]);
+	getColor();
 }
 
 $( document ).ready(function() {
